@@ -52,12 +52,12 @@ boolean Adafruit_CAP1188::begin(uint8_t i2caddr) {
   } else if (_clk == -1) {
     // Hardware SPI
     digitalWrite(_cs, HIGH);
-    SPCRback = SPCR;
+    //SPCRback = SPCR;
     SPI.begin();
     SPI.setClockDivider(SPI_CLOCK_DIV8);
     SPI.setDataMode(SPI_MODE0);
-    mySPCR = SPCR;
-    SPCR = SPCRback;
+    //mySPCR = SPCR;
+    //SPCR = SPCRback;
   } else {
     // Sofware SPI
     pinMode(_clk, OUTPUT);
@@ -176,8 +176,8 @@ uint8_t Adafruit_CAP1188::readRegister(uint8_t reg) {
     return (i2cread());
   } else {
     if (_clk == -1) {
-      SPCRback = SPCR;
-      SPCR = mySPCR;
+      //SPCRback = SPCR;
+      //SPCR = mySPCR;
     }
     digitalWrite(_cs, LOW);
     // set address
@@ -189,7 +189,7 @@ uint8_t Adafruit_CAP1188::readRegister(uint8_t reg) {
     uint8_t reply = spixfer(0); 
     digitalWrite(_cs, HIGH);
     if (_clk == -1) {
-      SPCR = SPCRback;
+      //SPCR = SPCRback;
     }
     return reply;
   }  
@@ -209,8 +209,8 @@ void Adafruit_CAP1188::writeRegister(uint8_t reg, uint8_t value) {
     Wire.endTransmission();
   } else {
     if (_clk == -1) {
-      SPCRback = SPCR;
-      SPCR = mySPCR;
+      //SPCRback = SPCR;
+      //SPCR = mySPCR;
     }
     digitalWrite(_cs, LOW);
     // set address
@@ -222,7 +222,7 @@ void Adafruit_CAP1188::writeRegister(uint8_t reg, uint8_t value) {
     spixfer(value);
     digitalWrite(_cs, HIGH);
     if (_clk == -1) {
-      SPCR = SPCRback;
+      //SPCR = SPCRback;
     }
   }
 }
